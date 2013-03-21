@@ -1,10 +1,8 @@
-extends footer
-
-block content
-    #header(style='display: block; position:fixed; right:0;left:0; padding:10px 50px; z-index:1000; background:rgba(0,0,0,.80)')
-        a(href='',style='float:left')
-            img(src='images/pin.png', alt='PinTravel', width='48px')
-        h1#main-title= title
-
-    #map_canvas
-
+doctype 5
+html
+    head
+        include includes/head
+    body(onload='initialize()')
+        include includes/header
+        include includes/body
+        include includes/footer
