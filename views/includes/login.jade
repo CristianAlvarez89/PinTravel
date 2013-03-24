@@ -1,0 +1,20 @@
+#login-form
+    #login
+        h2#contact-title Login
+        form
+            #fields(style="float:left, margin-right:10px")
+                input(type="email", placeholder='Your e-mail', required, style='margin-bottom: 6px; width:100%')
+                br
+                input(type="password", placeholder='Your pass', required, style="width:100%")
+            #icon-login
+                ul
+                    li#gg-icon-list
+                        input(type='radio', name='service', value='gg', style="background-color : #FFCC00; color : black")
+                    li#fb-icon-list
+                        input(type='radio', name='service', value='fb')
+                    li#tw-icon-list
+                        input(type='radio', name='service', value='tw')
+            #clear
+            input(type="submit", value="Sign in", style="margin-top:20px; height:10%")
+
+

@@ -6,12 +6,97 @@ body
   margin 0px
   padding 0px
 
-#main-title
+h1, h2, h3
     line-height 0px
-    margin-left 80px
     color #EEE
     font-family 'Josefin Sans', sans-serif
     font-weight 400
+    display inline
+
+a
+    text-decoration none
+    color inherit
+
+#header
+    display block
+    position fixed
+    right 0
+    left 0
+    padding 10px 50px
+    z-index 1000
+    background rgba(0,0,0,.80)
+
+#login-form
+    display block
+    position fixed
+    background rgba(0,0,0,1)
+    width 30%
+    height 30%
+    z-index 50000
+    bottom 5%
+    right 0
+
+#login
+    height 100%
+    width 100%
+    padding-top 5%
+    padding-left 10%
+    padding-right 10%
+
+#fields
+    width 40%
+    float left
+    margin-right 5%
+    float left
+    margin-right 10px
+
+
+#icon-login
+    width 40%
+    float left
+    border-radius 10px
+    border 2px dashed #CC0000
+    background #fff
+
+#icon-login ul
+    list-style-type none
+    // -webkit-padding-start 0px
+    margin 4px auto 0
+    text-align center
+
+#icon-login ul li
+    width 30%
+    float left
+    list-style-position inside
+    padding-top 26px
+    background-repeat no-repeat
+    background-position center
+    background-position-y 0px
+
+#gg-icon-list
+    background-image:url(../images/go.png)
+
+
+#fb-icon-list
+    background-image:url(../images/fb.png)
+
+#tw-icon-list
+    background-image:url(../images/tw.png)
+
+#contact-title
+    line-height 0px
+    color #EEE
+    font-family 'Josefin Sans', sans-serif
+    font-weight 400
+    padding-bottom 10px
+
+
+#main-title
+    float left
+
+#sign-in
+    margin-right 80px
+    float right
 
 #map_canvas
     width 100%
@@ -25,7 +110,7 @@ body
 #footer
     padding 0 20px
     width 100%
-    height 40px
+    height 5%
     position fixed
     bottom 0
     left 0
@@ -38,9 +123,85 @@ body
 
 .user-tools a
     padding 20px 32px
-    margin-right 26px
+    margin-right 6px
 
 #friends
     background-image:url(../images/friends.png)
+    background-size: 75%
+    background-repeat no-repeat
 #photos
     background-image:url(../images/photos.png)
+    background-size: 75%
+    background-repeat no-repeat
+
+
+
+#clear
+    display block
+    clear both
+
+
+
+
+
+
+
+#popup
+    width 100%
+    height 100%
+    background-color rgba(12,12,12,.8)
+    position fixed
+    top 0
+    z-index 500
+
+#login-form2
+    display block
+    position fixed
+    background rgba(0,0,0,1)
+    width 30%
+    height 30%
+    z-index 50000
+    bottom 35%
+    right 35%
+    opacity 1
+
+#login2
+    height 90%
+    width 80%
+    padding-top 5%
+    padding-left 10%
+    padding-right 10%
+
+#fields2
+    width 45%
+    float left
+    float left
+    margin-right 10px
+
+#icon-login2
+    width 45%
+    float right
+    border-radius 10px
+    border 2px dashed #CC0000
+    background #fff
+
+
+#submit-login2
+    margin-top 20px
+    width 100%
+
+#icon-login2 ul
+    list-style-type none
+    -webkit-padding-start 0px
+    margin 4px auto 0
+    text-align center
+
+
+#icon-login2 ul li
+    width 33%
+    float left
+    list-style-position inside
+    padding-top 26px
+    background-repeat no-repeat
+    background-position center
+    background-position-y 0px

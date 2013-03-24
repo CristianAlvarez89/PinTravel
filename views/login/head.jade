@@ -1,0 +1,56 @@
+title PinTravel
+link(rel='stylesheet', href='/stylesheets/style.css')
+link(rel='stylesheet', href='/stylesheets/login.css')
+link(href='http://fonts.googleapis.com/css?family=Josefin+Sans:300,400', rel='stylesheet', type='text/css')
+script(src='http://maps.googleapis.com/maps/api/js?sensor=false')
+script(type='text/javascript')
+    function initialize() {
+        var mapOptions = {
+            center: new google.maps.LatLng(-25,225),
+            zoom: 3,
+            mapTypeId: google.maps.MapTypeId.SATELLITE,
+            mapTypeControl: false,
+            streetViewControl : false,
+            zoomControl: false,
+            disableDoubleClickZoom: true,
+            draggable: false,
+            keyboardShortcuts : false,
+            navigationControl : false,
+            scaleControl : false,
+            scrollwheel : false,
+            streetViewControl : false
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
+
+        var neighborhoods =
+        [
+            new google.maps.LatLng(-10.358151, -162.333984),
+            new google.maps.LatLng(-37.09024,-113.466797),
+            new google.maps.LatLng(-45.089036,-157.851562)
+        ];
+
+        var markers = [];
+        var iterator = 0;
+
+        function addMarker()
+        {
+            markers.push(new google.maps.Marker({
+              position: neighborhoods[iterator],
+              map: map,
+              draggable: false,
+              animation: google.maps.Animation.DROP
+            }));
+            iterator++;
+        }
+
+        setTimeout(function()
+        {
+            for (var i = 0; i < neighborhoods.length; i++) {
+              setTimeout(function() {
+                addMarker();
+              }, i * 200);
+            }
+        },750);
+    }
+
+script(src="http://code.jquery.com/jquery-1.9.1.min.js")

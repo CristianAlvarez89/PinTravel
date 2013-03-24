@@ -1,4 +1,6 @@
-#header(style='display: block; position:fixed; right:0;left:0; padding:10px 50px; z-index:1000; background:rgba(0,0,0,.80)')
+#header
     a(href='',style='float:left')
         img(src='images/pin.png', alt='PinTravel', width='48px')
-    h1#main-title= title
+    h1#main-title= username
+    h3#sign-in
+        a(href='logout',style='cursor:pointer') Sign out

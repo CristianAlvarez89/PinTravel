@@ -1,0 +1,19 @@
+#popup
+    form#login(method='post', action='/login')
+        h1 Sign In
+        fieldset#inputs
+            input#username(type='email', name='email', placeholder='Email', autofocus='autofocus')
+            input#password(type='password', name='pass', placeholder='Password')
+        fieldset#actions
+            input#submit(type='submit', value='Sign in')
+            a#cancel Cancel
+            a(href='') Forgot your password?
+            a(href='') Register
+        h3 OR
+        ul#social-login
+            li
+                a#google-login
+            li
+                a#facebook-login
+            li
+                a#twitter-login
