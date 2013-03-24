@@ -1,0 +1,13 @@
+doctype 5
+html
+    head
+        include head
+    body(onload='initialize()')
+        include header
+        #map_canvas
+        #footer
+        include login_form
+
+    script
+        $('#sign-in').click(function(){$('#popup').show('slow')});
+        $('#cancel').click(function(event){$('#popup').hide()});
