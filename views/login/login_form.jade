@@ -1,19 +1,147 @@
 #popup
-    form#login(method='post', action='/login')
-        h1 Sign In
-        fieldset#inputs
-            input#username(type='email', name='email', placeholder='Email', autofocus='autofocus')
-            input#password(type='password', name='pass', placeholder='Password')
-        fieldset#actions
-            input#submit(type='submit', value='Sign in')
-            a#cancel Cancel
-            a(href='') Forgot your password?
-            a(href='') Register
-        h3 OR
-        ul#social-login
-            li
-                a#google-login
-            li
-                a#facebook-login
-            li
-                a#twitter-login
+    #login
+        #signin-form
+            h1 Sign In
+            fieldset#inputs
+                input#usernamein(type='email', name='email', placeholder='Email', autofocus='autofocus')
+                input#passwordin(type='password', name='pass', placeholder='Password')
+            fieldset#actions
+                input.submit-button#submit-signin(type='submit', value='Sign in')
+                a.cancel-sign-form Cancel
+                a(href='') Forgot your password?
+                a#signup Register
+            h3 OR
+            ul#social-login
+                li
+                    a#google-login
+                li
+                    a#facebook-login
+                li
+                    a#twitter-login
+        #signup-form
+            h1 Sign Up
+            fieldset#inputs
+                input#usernameup(type='text', name='username', placeholder='Username', autofocus='autofocus')
+                input#emailup(type='email', name='email', placeholder='Email')
+                input#passup(type='password', name='pass', placeholder='Password')
+                input#passmatchup(type='password', name='passmatch', placeholder='Repeat Password')
+            fieldset#actions
+                input.submit-button#submit-signup(type='submit', value='Sign up')
+                a.cancel-sign-form Cancel
+
+style
+    #signup{cursor: pointer;}
+
+
+script
+    $('#sign-in').click(function()
+    {
+        $('#signup-form').hide();
+        $('#signin-form').show();
+        $('#popup').show('slow');
+
+        $('#usernameup').val('');
+        $('#emailup').val('');
+        $('#passup').val('');
+        $('#passmatchup').val('');
+
+        $('#usernameup').css('border','1px solid #ccc');
+        $('#emailup').css('border','1px solid #ccc');
+        $('#passup').css('border','1px solid #ccc');
+        $('#passmatchup').css('border','1px solid #ccc');
+
+        $('#usernameup').attr('placeholder','Username');
+        $('#emailup').attr('placeholder','Email');
+        $('#passup').attr('placeholder','Password');
+        $('#passmatchup').attr('placeholder','Repeat Password');
+     });
+    $('.cancel-sign-form').click(function(event){$('#popup').hide('slow')});
+    $('#signup-form').hide();
+    $('#signup').click(function()
+    {
+        $('#signin-form').hide();
+        $('#signup-form').show();
+    });
+
+    $('#submit-signin').click(function()
+    {
+        $.ajax(
+        {
+            type:   "POST",
+            url:    "sign",
+            data:   {form:"in", email: $('#usernamein').val(), pass: $('#passwordin').val()},
+            success:function(data){if(data.signin)window.location.href='/home';}
+        });
+    });
+
+    $('#submit-signup').click(function()
+    {
+        $.ajax(
+        {
+            type:   "POST",
+            url:    "sign",
+            data:   {
+                        form:       "up",
+                        username:   $('#usernameup').val(),
+                        email:      $('#emailup').val(),
+                        pass:       $('#passup').val(),
+                        passmatch:  $('#passmatchup').val()
+                     },
+            success:  function(data)
+            {
+                $('#usernameup').css('border','1px solid #ccc');
+                $('#emailup').css('border','1px solid #ccc');
+                $('#passup').css('border','1px solid #ccc');
+                $('#passmatchup').css('border','1px solid #ccc');
+
+                var error = '';
+                //alert(JSON.stringify(data));
+                if (data.username != true)
+                {
+                    $('#usernameup').attr('placeholder',data.username);
+                    $('#usernameup').css('border','2px solid red');
+                    error = (data.username != false) ? error+data.username+'\n' : error;
+                }
+                else
+                    $('#usernameup').css('border','2px solid green');
+
+                if (data.email != true)
+                {
+                    $('#emailup').attr('placeholder',data.email);
+                    $('#emailup').css('border','2px solid red');
+                    error = (data.email != false) ? error+data.email+'\n' : error;
+                }
+                else
+                    $('#emailup').css('border','2px solid green');
+
+                if (data.pass != true)
+                {
+                    $('#passup').attr('placeholder',data.pass);
+                    $('#passup').css('border','2px solid red');
+                    error = (data.pass != "") ? error+data.pass : error;
+                }
+                else
+                    $('#passup').css('border','2px solid green');
+
+                if (data.passmatch != true)
+                {
+                    $('#passmatchup').val('');
+                    $('#passup').val('');
+                    $('#passmatchup').attr('placeholder',data.passmatch);
+                    $('#passmatchup').css('border','2px solid red');
+                    error = (data.passmatch != "") ? error+data.passmatch : error;
+                }
+                else
+                    $('#passmatchup').css('border','2px solid green');
+
+                if (error != '')
+                    smoke.alert(error);
+
+                if (data.signup != true)
+                    smoke.alert(data.signup);
+                else
+                    window.location.href='/home';
+            }
+        });
+    });
+

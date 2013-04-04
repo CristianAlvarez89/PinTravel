@@ -3,8 +3,8 @@ html {
 }
 body {
   height: 100%;
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
 }
 h1,
 h2,
@@ -50,6 +50,7 @@ a {
   float: left;
   margin-right: 5%;
   float: left;
+  margin-right: 10px;
 }
 #icon-login {
   width: 40%;
@@ -60,7 +61,6 @@ a {
 }
 #icon-login ul {
   list-style-type: none;
-  -webkit-padding-start: 0px;
   margin: 4px auto 0;
   text-align: center;
 }
@@ -71,7 +71,7 @@ a {
   padding-top: 26px;
   background-repeat: no-repeat;
   background-position: center;
-  background-position-y: 0;
+  background-position-y: 0px;
 }
 #gg-icon-list {
   background-image: url("../images/go.png");
@@ -103,6 +103,7 @@ a {
   position: fixed;
   right: 0;
   left: 0;
+  top: 90;
 }
 #footer {
   padding: 0 20px;
@@ -121,6 +122,16 @@ a {
 .user-tools a {
   padding: 20px 32px;
   margin-right: 6px;
+}
+#add {
+  background-image: url("../images/add-pin.png");
+  background-size: 75%;
+  background-repeat: no-repeat;
+}
+#search {
+  background-image: url("../images/search-pin.png");
+  background-size: 75%;
+  background-repeat: no-repeat;
 }
 #friends {
   background-image: url("../images/friends.png");

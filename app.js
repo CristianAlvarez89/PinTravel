@@ -5,7 +5,7 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , login = require('./routes/login')
+  , am = require('./routes/account-manager')
   , home = require('./routes/home')
   , user = require('./routes/user')
   , wines = require('./routes/wines')
@@ -34,9 +34,12 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
-app.get('/users', user.list);
+app.post('/sign',am.sign);
 
 app.get('/home', home.index);
+
+
+app.get('/users', user.list);
 
 app.get('/wines',wines.findAll);
 app.get('/wines/:id',wines.findById);
@@ -44,10 +47,11 @@ app.post('/wines',wines.addWine);
 app.put('/wines/:id',wines.updateWine);
 app.delete('/wines/:id',wines.deleteWine);
 
-app.get('/login',login.login);
-app.post('/login',login.doLogin);
 
-app.get('/logout',login.logout);
+
+//app.get('/signup',am.signup);
+app.post('/signup',user.signup);
+app.get('/logout',am.logout);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

@@ -14,12 +14,12 @@
     background-image: -ms-linear-gradient(top, #fff, #eee);
     background-image: -o-linear-gradient(top, #fff, #eee);
     background-image: linear-gradient(top, #fff, #eee);
-    height: 285px;
+    height: 325px;
     width: 400px;
     margin: -150px 0 0 -230px;
     padding: 30px;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     z-index: 0;
     -moz-border-radius: 3px;
@@ -117,12 +117,11 @@
     text-transform: uppercase;
     text-align: center;
     color: #666;
-    margin: 10px 0 20px 0;
+    margin: 30px 0 35px 0;
     letter-spacing: 4px;
     font: normal 16px/1 Verdana, Helvetica;
     position: relative;
     display: block;
-    padding-bottom: 6px;
 }
 
 #login h3:after, #login h3:before
@@ -209,7 +208,7 @@ fieldset
     margin: 25px 0 0 0;
 }
 
-#submit
+.submit-button
 {
     background-color: #ffb94b;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#fddb6f), to(#ffb94b));
@@ -242,7 +241,7 @@ fieldset
     color: #8f5a0a;
 }
 
-#submit:hover,#submit:focus
+.submit-button:hover,.submit-button:focus
 {
     background-color: #fddb6f;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#ffb94b), to(#fddb6f));
@@ -253,7 +252,7 @@ fieldset
     background-image: linear-gradient(top, #ffb94b, #fddb6f);
 }
 
-#submit:active
+.submit-button:active
 {
     outline: none;
 
@@ -262,7 +261,7 @@ fieldset
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;
 }
 
-#submit::-moz-focus-inner
+.submit-button::-moz-focus-inner
 {
     border: none;
 }
@@ -290,7 +289,7 @@ fieldset
 
 /*--------------------*/
 
-#cancel
+.cancel-sign-form
 {
     cursor: pointer;
 }

@@ -4,3 +4,10 @@
     h1#main-title= username
     h3#sign-in
         a(href='logout',style='cursor:pointer') Sign out
+
+
+script
+    if ("#{new_user}")
+        smoke.alert("Welcome to PinTravel!!");
+    else
+        smoke.alert("Hi #{username}");

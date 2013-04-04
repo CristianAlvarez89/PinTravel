@@ -8,5 +8,5 @@ exports.index = function(req, res)
     if (!req.session.username)
         res.render('login/index');
     else
-        res.render('home/index');
+        res.render('home/index',{username:req.session.username});
 };
