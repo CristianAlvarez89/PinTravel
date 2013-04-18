@@ -1,10 +1,3 @@
-$(document).ready(
-function()
-{
-    $('#settings').hide();
-    $('#map_canvas').css('width','100%');
-});
-
 function changeMapType(map)
 {
     if(map.getMapTypeId() == google.maps.MapTypeId.TERRAIN)
