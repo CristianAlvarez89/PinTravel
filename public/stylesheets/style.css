@@ -143,6 +143,12 @@ a {
   background-size: 75%;
   background-repeat: no-repeat;
 }
+#maptype {
+  background-image: url("../images/maps_alt.png");
+  background-size: 75%;
+  background-repeat: no-repeat;
+  margin-right: 20px;
+}
 #clear {
   display: block;
   clear: both;
@@ -200,7 +206,7 @@ a {
   width: 33%;
   float: left;
   list-style-position: inside;
-  padding-top: 26px;
+  padding-top: 27px;
   background-repeat: no-repeat;
   background-position: center;
   background-position-y: 0px;
@@ -208,7 +214,7 @@ a {
 #add-pin-form {
   width: 50%;
   height: 25%;
-  background-color: #f00;
+  background-color: #000;
   z-index: 1000;
   display: block;
   position: fixed;
