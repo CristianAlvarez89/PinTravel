@@ -70,12 +70,13 @@ script(type='text/javascript')
             ].join(' ');
           }
 
-          infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
           infowindow.open(map, marker);
         });
-
+        var maptype = document.getElementById("maptype");
+        maptype.onclick = function(){changeMapType(map);};
     }
-
+    google.maps.event.addDomListener(window, 'load', initialize);
 script(src="http://code.jquery.com/jquery-1.9.1.min.js")
 script(src="/javascripts/smoke.min.js")
 script(src="/javascripts/scripts.js")
