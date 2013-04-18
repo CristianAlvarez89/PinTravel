@@ -10,15 +10,11 @@ script(type='text/javascript')
         var mapOptions = {
             center: new google.maps.LatLng(41.38, 2.18),
             zoom: 3,
-            mapTypeId: google.maps.MapTypeId.SATELLITE ,
+            mapTypeId: google.maps.MapTypeId.TERRAIN ,
             mapTypeControl: false,
             zoomControl: true,
             zoomControlOptions: {
                 position: google.maps.ControlPosition.LEFT_CENTER
-            },
-            mapTypeControl: true,
-            mapTypeControlOptions: {
-                position: google.maps.ControlPosition.RIGHT_CENTER
             },
             panControl: false,
             streetViewControl: false
@@ -82,3 +78,4 @@ script(type='text/javascript')
 
 script(src="http://code.jquery.com/jquery-1.9.1.min.js")
 script(src="/javascripts/smoke.min.js")
+script(src="/javascripts/scripts.js")
