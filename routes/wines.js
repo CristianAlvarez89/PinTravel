@@ -14,7 +14,8 @@ db.open(function(err, db) {
             if (err) {
                 console.log("The 'wines' collection doesn't exist. Creating it with sample data...");
             }
-            populateDB();
+            if (collection == null)
+                populateDB();
         });
     }
 });

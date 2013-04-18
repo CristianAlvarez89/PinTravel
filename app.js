@@ -4,13 +4,14 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
-  , am = require('./routes/account-manager')
-  , home = require('./routes/home')
-  , user = require('./routes/user')
-  , wines = require('./routes/wines')
-  , http = require('http')
-  , path = require('path');
+    mongoose = require('mongoose'),
+    routes = require('./routes/'),
+    am = require('./routes/account-manager'),
+    home = require('./routes/home'),
+    user = require('./routes/user'),
+    wines = require('./routes/wines'),
+    http = require('http'),
+    path = require('path');
 
 var app = express();
 
@@ -52,6 +53,11 @@ app.delete('/wines/:id',wines.deleteWine);
 //app.get('/signup',am.signup);
 app.post('/signup',user.signup);
 app.get('/logout',am.logout);
+
+
+pin = require('./routes/pin')(app);
+
+mongoose.connect('mongodb://localhost/pintravel');
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

@@ -205,3 +205,13 @@ a {
   background-position: center;
   background-position-y: 0px;
 }
+#add-pin-form {
+  width: 50%;
+  height: 25%;
+  background-color: #f00;
+  z-index: 1000;
+  display: block;
+  position: fixed;
+  top: 40%;
+  left: 25%;
+}
