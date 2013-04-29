@@ -219,6 +219,7 @@ a {
   width: 10%;
   left: 25%;
   height: 100%;
+  cursor: pointer;
 }
 .formlabelhide {
   background-image: url("../images/lefttab2.png");
@@ -229,6 +230,7 @@ a {
   width: 10%;
   left: 25%;
   height: 100%;
+  cursor: pointer;
 }
 #clear {
   display: block;
