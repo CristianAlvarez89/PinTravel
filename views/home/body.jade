@@ -1,4 +1,20 @@
-#settings-widget
-    #add-pin-form
-        input#gf(type="text", size="50", placeholder="Anything you want!")
-#map_canvas
+#divYeah
+    #settings-widget
+        div(style="font-size:28px;font-family: 'Caesar Dressing';color:white;")
+            span ADD PIN
+        div
+            input#gf(type="text", size="50", placeholder="Select the city to pin")
+            div#cityData(style=" margin:15px; display:none;")
+                div(class="to",style="display:none;")
+                    label(class="town") Selected town:
+                    label(id="townName")
+                div(class="ci" ,style="display:none;")
+                    label(class="city") Selected city:
+                    label(id="cityName")
+                div(class="co" ,style="display:none;")
+                    label(class="country") Selected country:
+                    label(id="countryName")
+                div(class="buttons", style="margin-top:32px; display:none; text-align:center;")
+                    img#addpin(type="button" ,src="../images/addpin.png", onclick="addPin()")
+                    img#canceladdpin(type="button", src="../images/cancel.png", onclick="resetFormAddPin()")
+    #map_canvas
