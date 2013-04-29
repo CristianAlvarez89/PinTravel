@@ -125,6 +125,12 @@ a {
   font-family: caesar dressing;
   font-size: 24px;
 }
+.coordenates {
+  color: #fff;
+  float: left;
+  font-family: caesar dressing;
+  font-size: 24px;
+}
 #townName {
   color: #5ca1db;
   font-family: caesar dressing;
@@ -136,6 +142,11 @@ a {
   font-size: 24px;
 }
 #countryName {
+  color: #5ca1db;
+  font-family: caesar dressing;
+  font-size: 24px;
+}
+#coordenatesName {
   color: #5ca1db;
   font-family: caesar dressing;
   font-size: 24px;
@@ -198,6 +209,26 @@ a {
   background-size: 75%;
   background-repeat: no-repeat;
   margin-right: 20px;
+}
+.formlabelshow {
+  background-image: url("../images/lefttab.png");
+  background-repeat: no-repeat;
+  z-index: 1020;
+  position: fixed;
+  top: 40%;
+  width: 10%;
+  left: 25%;
+  height: 100%;
+}
+.formlabelhide {
+  background-image: url("../images/lefttab2.png");
+  background-repeat: no-repeat;
+  z-index: 1020;
+  position: fixed;
+  top: 40%;
+  width: 10%;
+  left: 25%;
+  height: 100%;
 }
 #clear {
   display: block;

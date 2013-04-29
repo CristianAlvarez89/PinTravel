@@ -18,18 +18,22 @@ function openCloseAddCity()
     if($('#settings-widget').css('display') == 'none')
     {
         $('#map_canvas').css('width','75%');
+        $('#formlabel').show();
+        $('#formlabel').css('left','25%');
         $('#settings-widget').show();
     }
     else
     {
         $('#settings-widget').hide();
         $('#map_canvas').css('width','100%');
+        $('#formlabel').hide();
     }
 }
 function emplenaInformacioLloc(place)
 {
     $('#cityData').show();
     var dades = place.formatted_address.split(", ");
+    $('#coordenatesName').html(place.geometry.location.lat() + " , " + place.geometry.location.lng());
     if(dades.length == 1)
     {
         $('#countryName').html(dades[0].trim());
@@ -55,4 +59,25 @@ function emplenaInformacioLloc(place)
         $('.co').show();
     }
     $('.buttons').show();
+}
+
+function hideForm()
+{
+    if($('#settings-widget').css('display') == 'none')
+    {
+        $('#map_canvas').css('width','75%');
+        $('#formlabel').removeClass('formlabelhide');
+        $('#formlabel').addClass('formlabelshow');
+        $('#settings-widget').show();
+        $('#formlabel').css('left','25%');
+    }
+    else
+    {
+        $('#settings-widget').hide();
+        $('#formlabel').addClass('formlabelhide');
+        $('#formlabel').removeClass('formlabelshow');
+        $('#map_canvas').css('width','100%');
+        $('#formlabel').css('left','0');
+    }
+
 }

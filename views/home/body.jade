@@ -5,16 +5,20 @@
         div
             input#gf(type="text", size="50", placeholder="Select the city to pin")
             div#cityData(style=" margin:15px; display:none;")
+                div(class="coord",style="display:none;")
+                    label(class="coordenates") Coordenates:
+                    label(id="coordenatesName")
                 div(class="to",style="display:none;")
-                    label(class="town") Selected town:
+                    label(class="town") Town:
                     label(id="townName")
                 div(class="ci" ,style="display:none;")
-                    label(class="city") Selected city:
+                    label(class="city") City:
                     label(id="cityName")
                 div(class="co" ,style="display:none;")
-                    label(class="country") Selected country:
+                    label(class="country") Country:
                     label(id="countryName")
                 div(class="buttons", style="margin-top:32px; display:none; text-align:center;")
-                    img#addpin(type="button" ,src="../images/addpin.png", onclick="addPin()")
-                    img#canceladdpin(type="button", src="../images/cancel.png", onclick="resetFormAddPin()")
+                    img#addpin(type="button" ,src="../images/addpin.png", style="cursor:pointer;" , title="Add Pin",onclick="addPin()")
+                    img#canceladdpin(type="button", src="../images/cancel.png", style="cursor:pointer;" ,title="Cancel and hide tab", onclick="hideFormAddPin()")
+    div(id="formlabel", class="formlabelshow", style="display:none;", onclick="hideForm()")
     #map_canvas
