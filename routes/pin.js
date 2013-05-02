@@ -1,38 +1,38 @@
-module.exports = function(app){
+    module.exports = function(app){
 
     var Pin = require('../models/pin');
 
-    //Create a new pin and save it
-    pin = function(req, res){
-        var pin = new Pin({user: req.body.user, lat: req.body.lat, long: req.body.long});
+    //Guarda un nou pin al compte de l'usuari
+    addPin = function(req, res){
+        var pin = new Pin(
+            {
+                userID:     req.session.userID,
+                lat:        req.body.lat,
+                long:       req.body.lng,
+                town:       req.body.town,
+                city:       req.body.city,
+                country:    req.body.country
+            });
         pin.save();
         res.end();
     };
 
-    //find all pins
-    list = function(req, res){
-        Pin.find(function(err, pins) {
-            res.send(pins);
-        });
-    };
-
     //find all pins by a user
-    listByID = function(req, res){
-        Pin.find({user:req.params.userID}, function(err, pins) {
+    getPins = function(req, res){
+        Pin.find({userID:req.params.userID}, function(err, pins) {
             res.send(pins);
         });
     };
 
     //find pin by id
-    find = (function(req, res) {
+    getPin = (function(req, res) {
         Pin.findOne({user: req.params.id}, function(error, pin) {
             res.send(pin);
         })
     });
 
     //Link routes and functions
-    app.post('/pin', pin);
-    app.get('/pin', list);
-    app.get('/pin/:userID', listByID);
-    app.get('/pin/:id', find);
+    app.post('/pin', addPin);
+    app.get('/pin/:userID', getPins);
+    app.get('/pin/:userID/:id', getPin);
 }

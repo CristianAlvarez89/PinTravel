@@ -2,9 +2,12 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var pinSchema = new Schema({
-    user: String,
+    userID: Schema.ObjectId,
     lat: Number,
-    long: Number
+    long: Number,
+    town:String,
+    city:String,
+    country:String
 });
 
 //Export the schema

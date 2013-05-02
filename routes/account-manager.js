@@ -18,7 +18,7 @@ var Server 		= require('mongodb').Server;
 var dbName      = 'pintravel';
 
 
-/* database connection */
+/* Connexio base de dades */
 
 var db = new MongoDB(dbName, new Server('localhost', 27017, {auto_reconnect: true}), {w: 1});
 db.open(function(error, d) {
@@ -30,47 +30,29 @@ db.open(function(error, d) {
 var accounts = db.collection('accounts');
 
 
-/* Validator import */
+/* Importacio del modul Validator */
+
 var check = require('validator').check,
     sanitize = require('validator').sanitize;
 
 
-/* Sign User */
+
+/* Inici de sessio i registre de l'usuari */
+
 exports.sign = function(req, res)
 {
-    if (req.body.form == 'in')
-        doSignIn(req,res);
-
-    else if (req.body.form == 'up')
-        doSignUp(req,res);
-
-    else
-        console.log('Something went bad in sign form');
+    if (req.body.form == 'in') doSignIn(req,res);       //Inici de sessio de l'usuari
+    else if (req.body.form == 'up') doSignUp(req,res);  //Registre de l'usuari
+    else console.log('Something went bad in sign form');//Qualsevol altre parametre no esperat
 };
 
 
-/* Do User Login */
 
-exports.doLogin = function(req, res)
-{
-    var post = req.body;
-    if ((post.email == 'as@as.as') && (post.pass == 'as'))
-    {
-        req.session.username = post.email;
-        res.redirect('/home');
-    }
-    else
-        res.redirect('/');
-};
-
-
-/* Do User Logout */
+/* Tanca la sessio de l'usuari */
 
 exports.logout = function(req, res)
 {
-    if (req.session.username)
-        req.session.destroy();
-
+    if (req.session.username) req.session.destroy();
     res.redirect('/');
 };
 
@@ -111,6 +93,8 @@ function doSignIn(req,res)
                 if (obj.pass == encrypted)
                 {           console.log('Pass equal');
                     req.session.username = obj.username;
+                    req.session.userID = obj._id;
+                    console.log(obj._id);
                     json_result.signin = true;
                 }
                 else

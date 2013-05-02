@@ -1,5 +1,6 @@
 #popup
     #login
+        //SignIn Form Part
         #signin-form
             h1 Sign In
             fieldset#inputs
@@ -11,6 +12,7 @@
                 a(href='') Forgot your password?
                 a#signup Register
             h3 OR
+            //Social Login Buttons
             ul#social-login
                 li
                     a#google-login
@@ -18,6 +20,7 @@
                     a#facebook-login
                 li
                     a#twitter-login
+        //SignUp Form Part
         #signup-form
             h1 Sign Up
             fieldset#inputs
@@ -26,8 +29,8 @@
                 input#passup(type='password', name='pass', placeholder='Password')
                 input#passmatchup(type='password', name='passmatch', placeholder='Repeat Password')
             fieldset#actions
-                input.submit-button#submit-signup(type='submit', value='Sign up')
-                a.cancel-sign-form Cancel
+                input.submit-button#submit-signup(type='submit', value='Sign up')   //Sign Up Button
+                a.cancel-sign-form Cancel   //Cancel link
 
 style
     #signup{cursor: pointer;}

@@ -120,7 +120,8 @@ function emplenaInformacioLloc(place)
 {
     $('#cityData').show();
     var dades = place.formatted_address.split(", ");
-    $('#coordenatesName').html(place.geometry.location.lat() + " , " + place.geometry.location.lng());
+    $('#coordenatesName > #lat').html(place.geometry.location.lat());
+    $('#coordenatesName > #lng').html(place.geometry.location.lng());
     if(dades.length == 1)
     {
         $('#countryName').html(dades[0].trim());
@@ -189,5 +190,27 @@ function hideForm(botoclicat)
         }
     }
 
+}
 
+function addPin()
+{
+    smoke.confirm('Do you want to add that Pin?',function(e)
+        {
+            if (e)
+            {
+                $.post(
+                    'pin',
+                    {
+                        lat:$('#coordenatesName > #lat').text(),
+                        lng:$('#coordenatesName > #lng').text(),
+                        town:$('#cityData #townName').text(),
+                        city:$('#cityData #cityName').text(),
+                        country:$('#cityData #countryName').text()
+                    },
+                    function(){smoke.alert('Pin was added');}
+                );
+            }
+            else
+                smoke.alert('That Pin was not been added');
+        });
 }

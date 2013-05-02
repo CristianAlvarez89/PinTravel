@@ -5,10 +5,9 @@
 
 var express = require('express')
     mongoose = require('mongoose'),
-    routes = require('./routes/'),
+    index = require('./routes/index'),
     am = require('./routes/account-manager'),
-    home = require('./routes/home'),
-    user = require('./routes/user'),
+    pin = require('./routes/pin'),
     wines = require('./routes/wines'),
     http = require('http'),
     path = require('path');
@@ -34,25 +33,36 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
-app.post('/sign',am.sign);
+/***    Inici Aplicacio    ***/
+app.get('/', index.inici);      //Inicia l'aplicacio
+app.get('/home', index.home);   //Mostra la pàgina inicial si l'usuari no ha fet el SignIn i la part interna si sí ho ha fet.
 
-app.get('/home', home.index);
+
+/***    Account Manager    ***/
+app.post('/sign',am.sign);      //Permet a l'usuari iniciar la sessio en l'aplicacio
+app.get('/logout',am.logout);   //Permet a l'usuari tancar la sessio
 
 
-app.get('/users', user.list);
 
+
+
+
+/***    Pin API    ***/
+//app.get('/user', user.list);   //JSON amb la llista dels usuaris registrats
+
+
+/*
 app.get('/wines',wines.findAll);
 app.get('/wines/:id',wines.findById);
 app.post('/wines',wines.addWine);
 app.put('/wines/:id',wines.updateWine);
 app.delete('/wines/:id',wines.deleteWine);
+*/
 
 
 
-//app.get('/signup',am.signup);
-app.post('/signup',user.signup);
-app.get('/logout',am.logout);
+
+//app.post('/pin',pin.add);
 
 
 pin = require('./routes/pin')(app);
