@@ -82,19 +82,18 @@ function doSignIn(req,res)
     var json_result  = {};
 
     /* Email validation */
-    try {
-        check(req.body.email).isEmail()
-        json_result.email = true;
-    } catch(e) {
-        console.log(e.message)
-        json_result.email = false;
-    }
+    if (req.body.email != "")
+        try {
+            check(req.body.email).isEmail()
+            json_result.email = true;
+        } catch(e) {
+            console.log(e.message)
+            json_result.email = e.message;  //Incorrect email
+        }
+    else json_result.email = "Empty email";
 
     /* Password validation */
-    if (req.body.pass == '' || req.body.pass == undefined)
-        json_result.pass = false;
-    else
-        json_result.pass = true;
+    json_result.pass = (req.body.pass != "") ? true : "Empty password";
 
     /* Sign in validation */
     if (json_result.email && json_result.pass)
@@ -110,15 +109,24 @@ function doSignIn(req,res)
                 var cipher = crypto.createCipher(algorithm, key);
                 var encrypted = cipher.update(req.body.pass, 'utf8', 'hex') + cipher.final('hex');
                 if (obj.pass == encrypted)
-                {
+                {           console.log('Pass equal');
                     req.session.username = obj.username;
                     json_result.signin = true;
                 }
                 else
+                {
+                    json_result.pass = "Incorrect pass";
                     json_result.signin = false;
+                }
             }
+            console.log(json_result);
             res.send(json_result);
         });
+    }
+    else
+    {
+        json_result.signin = false;
+        res.send(json_result);
     }
 }
 

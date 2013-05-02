@@ -40,6 +40,9 @@ script
         $('#signin-form').show();
         $('#popup').show('slow');
 
+        $('#usernamein').val('');
+        $('#passwordin').val('');
+
         $('#usernameup').val('');
         $('#emailup').val('');
         $('#passup').val('');
@@ -70,7 +73,39 @@ script
             type:   "POST",
             url:    "sign",
             data:   {form:"in", email: $('#usernamein').val(), pass: $('#passwordin').val()},
-            success:function(data){if(data.signin)window.location.href='/home';}
+            success:function(data)
+            {
+                $('#usernamein').css('border','1px solid #ccc');
+                $('#passwordin').css('border','1px solid #ccc');
+
+                var error = '';
+                //alert(JSON.stringify(data));
+                if (data.email != true)
+                {
+                    $('#usernamein').attr('placeholder',data.email);
+                    $('#usernamein').css('border','2px solid red');
+                    error = (data.email != false) ? error+data.email+'\n' : error;
+                }
+                else
+                    $('#usernamein').css('border','2px solid green');
+
+                if (data.pass != true)
+                {
+                    $('#passwordin').attr('placeholder',data.pass);
+                    $('#passwordin').css('border','2px solid red');
+                    error = (data.pass != "") ? error+data.pass : error;
+                }
+                else
+                    $('#passwordin').css('border','2px solid green');
+
+                if (error != '')
+                    smoke.alert(error);
+
+                if (data.signin != true)
+                    smoke.alert(data.signin);
+                else
+                    window.location.href='/home';
+            }
         });
     });
 
