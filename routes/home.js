@@ -4,10 +4,10 @@
  */
 
 exports.index = function(req, res){
-    if (!req.session.username)
+  /*  if (!req.session.username)
         res.redirect('/');
     else
         res.render('home/index', {username: req.session.username, new_user: req.session.new_user});
-
+*/
     res.render('home/index', {username: 'username', new_user: false});
 };
