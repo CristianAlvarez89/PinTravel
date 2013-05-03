@@ -198,16 +198,22 @@ function addPin()
         {
             if (e)
             {
+                var lat =  parseFloat($('#coordenatesName > #lat').text()).toFixed(6);
+                var lng =  parseFloat($('#coordenatesName > #lng').text()).toFixed(6);
                 $.post(
                     'pin',
                     {
-                        lat:$('#coordenatesName > #lat').text(),
-                        lng:$('#coordenatesName > #lng').text(),
+                        lat:lat,
+                        lng:lng,
                         town:$('#cityData #townName').text(),
                         city:$('#cityData #cityName').text(),
                         country:$('#cityData #countryName').text()
                     },
-                    function(){smoke.alert('Pin was added');}
+                    function(data)
+                    {
+                        if (data.free) smoke.alert('Pin was added');
+                        else smoke.alert('Pin had already been added');
+                    }
                 );
             }
             else

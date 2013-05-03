@@ -4,22 +4,32 @@
 
     //Guarda un nou pin al compte de l'usuari
     addPin = function(req, res){
-        var pin = new Pin(
+        Pin.find(
+            {userID:req.session.userID,lat:req.body.lat,long:req.body.lng},
+            function(error, pins)
             {
-                userID:     req.session.userID,
-                lat:        req.body.lat,
-                long:       req.body.lng,
-                town:       req.body.town,
-                city:       req.body.city,
-                country:    req.body.country
+                if (pins.length == 0)
+                {
+                    var pin = new Pin(
+                        {
+                            userID:     req.session.userID,
+                            lat:        req.body.lat,
+                            long:       req.body.lng,
+                            town:       req.body.town,
+                            city:       req.body.city,
+                            country:    req.body.country
+                        });
+                    pin.save();
+                    res.send({free:true});
+                }
+                else
+                    res.send({free:false});
             });
-        pin.save();
-        res.end();
     };
 
     //find all pins by a user
     getPins = function(req, res){
-        Pin.find({userID:req.params.userID}, function(err, pins) {
+        Pin.find({userID:req.params.userID}, function(error, pins) {
             res.send(pins);
         });
     };
