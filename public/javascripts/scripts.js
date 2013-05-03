@@ -53,6 +53,7 @@ function emplenaMarkersUsuari(map)
     var pins = $.ajax({url:'pin',async: false,success:function(data){return data;}});
     pins = JSON.parse(pins.responseText);
 
+    //Per cada Pin creem el Markar i lafegim al mapa
     for (var i=0;i<pins.length;i++)
     {
         var title = (pins[i].town != '') ? pins[i].town : pins[i].city;
@@ -62,16 +63,22 @@ function emplenaMarkersUsuari(map)
                 map: map,
                 title: title
             });
-
-        var content = '<div>'+
-                        pins[i].city+
-                        pins[i].country+
-                        '</div>';
-
-        var infowindow = new google.maps.InfoWindow({content: content});
-        google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});
+        addInfoWindow(map,marker,pins[i]);
     }
     return pins.length;
+}
+
+function addInfoWindow(map,marker,pin)
+{
+    var info = (pin.town != '') ? pin.town+'<br>'+pin.city + '<br>' + pin.country : pin.city + '<br>' + pin.country;
+
+    var infoWindow = new google.maps.InfoWindow({
+        content: info
+    });
+
+    google.maps.event.addListener(marker, 'click', function () {
+        infoWindow.open(map, marker);
+    });
 }
 
 
