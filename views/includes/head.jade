@@ -9,10 +9,7 @@ script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&librari
 script(type='text/javascript')
     var mapa;
     function initialize() {
-        var options = {
 
-        types: ['(cities)']
-        }
         var mapOptions = {
             center: new google.maps.LatLng(41.38, 2.18),
             zoom: 3,
@@ -26,7 +23,11 @@ script(type='text/javascript')
             streetViewControl: false
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
+
+        emplenaMarkersUsuari(map);
+
         var input = document.getElementById('gf');
+        var options = {types: ['(cities)']}
         var autocomplete = new google.maps.places.Autocomplete(input,options);
 
         autocomplete.bindTo('bounds', map);

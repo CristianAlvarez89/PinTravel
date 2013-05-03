@@ -46,6 +46,31 @@ var ddData = [
 
     }
 ];
+
+function emplenaMarkersUsuari(map)
+{
+    alert('Anem a emplenar markers');
+    var pins = $.ajax(
+        {
+            url:'pin',
+            async: false,
+            success:function(data){return data;}
+        });
+    pins = JSON.parse(pins.responseText);
+
+    for (var i=0;i<pins.length;i++)
+    {
+        var title = (pins[i].town != '') ? pins[i].town : pins[i].city;
+        new google.maps.Marker(
+            {
+                position: new google.maps.LatLng(pins[i].lat,pins[i].long),
+                map: map,
+                title: title
+            });
+    }
+}
+
+
 function changeMapType(map)
 {
     if(map.getMapTypeId() == google.maps.MapTypeId.TERRAIN)

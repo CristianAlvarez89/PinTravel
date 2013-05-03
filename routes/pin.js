@@ -29,7 +29,7 @@
 
     //find all pins by a user
     getPins = function(req, res){
-        Pin.find({userID:req.params.userID}, function(error, pins) {
+        Pin.find({userID:req.session.userID}, function(error, pins) {
             res.send(pins);
         });
     };
@@ -43,6 +43,6 @@
 
     //Link routes and functions
     app.post('/pin', addPin);
-    app.get('/pin/:userID', getPins);
+    app.get('/pin', getPins);
     app.get('/pin/:userID/:id', getPin);
 }
