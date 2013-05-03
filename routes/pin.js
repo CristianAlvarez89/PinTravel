@@ -35,14 +35,15 @@
     };
 
     //find pin by id
-    getPin = (function(req, res) {
+    /*getPin = (function(req, res) {
         Pin.findOne({user: req.params.id}, function(error, pin) {
             res.send(pin);
         })
-    });
+    });*/
 
-    //Link routes and functions
-    app.post('/pin', addPin);
-    app.get('/pin', getPins);
-    app.get('/pin/:userID/:id', getPin);
+
+    /***    Pin API    ***/
+
+    app.post('/pin', addPin);           //Guarda el pin al compte de l'usuari
+    app.get('/pin', getPins);           //Obte els pins de l'usuari que te iniciada la sessio
 }

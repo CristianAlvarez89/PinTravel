@@ -7,7 +7,6 @@ var express = require('express')
     mongoose = require('mongoose'),
     index = require('./routes/index'),
     am = require('./routes/account-manager'),
-    pin = require('./routes/pin'),
     wines = require('./routes/wines'),
     http = require('http'),
     path = require('path');
@@ -43,14 +42,6 @@ app.post('/sign',am.sign);      //Permet a l'usuari iniciar la sessio en l'aplic
 app.get('/logout',am.logout);   //Permet a l'usuari tancar la sessio
 
 
-
-
-
-
-/***    Pin API    ***/
-//app.get('/user', user.list);   //JSON amb la llista dels usuaris registrats
-
-
 /*
 app.get('/wines',wines.findAll);
 app.get('/wines/:id',wines.findById);
@@ -60,12 +51,8 @@ app.delete('/wines/:id',wines.deleteWine);
 */
 
 
-
-
-//app.post('/pin',pin.add);
-
-
 pin = require('./routes/pin')(app);
+users = require('./routes/account')(app);
 
 mongoose.connect('mongodb://localhost/pintravel');
 
