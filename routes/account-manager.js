@@ -211,6 +211,7 @@ function addNewUser(req, res, json_result, callback)
                             {
                                 json_result.signup = true;
                                 req.session.username = req.body.username;
+                                req.session.userID = obj._id;
                                 req.session.new_user = true;
                                 res.send(json_result);
                             }

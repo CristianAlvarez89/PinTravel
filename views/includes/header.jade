@@ -1,6 +1,6 @@
 #header
     a(href='',style='float:left')
-        img(src='images/pin.png', alt='PinTravel', width='48px')
+        img#pintravelimg(src='images/pin.png', alt='PinTravel', width='48px')
     h1#main-title= username
     h3#sign-in
         a(href='logout',style='cursor:pointer') Sign out
@@ -8,6 +8,6 @@
 
 script
     if ("#{new_user}")
-        smoke.alert("Welcome to PinTravel!!");
+        smoke.alert("Welcome to PinTravel!!",{},function(){firstPin();});
     else
-        smoke.alert("Hi #{username}");
+        smoke.alert("Hi #{username}",{},function(){firstPin();});

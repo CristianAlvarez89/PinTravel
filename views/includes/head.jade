@@ -24,7 +24,7 @@ script(type='text/javascript')
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
 
-        emplenaMarkersUsuari(map);
+        var numPins = emplenaMarkersUsuari(map);
 
         var input = document.getElementById('gf');
         var options = {types: ['(cities)']}
@@ -60,9 +60,12 @@ script(type='text/javascript')
         var maptype = document.getElementById("maptype");
         maptype.onclick = function(){changeMapType(map);};
         mapa = map;
+
+        sessionStorage.numPins = numPins;
     }
     google.maps.event.addDomListener(window, 'load', initialize);
 script(src="http://code.jquery.com/jquery-1.9.1.min.js")
+script(src="http://code.jquery.com/ui/1.10.2/jquery-ui.js")
 script(src="/javascripts/smoke.min.js")
 script(src="/javascripts/scripts.js")
 script(src="/javascripts/jquery.ddslick.min.js")

@@ -49,25 +49,29 @@ var ddData = [
 
 function emplenaMarkersUsuari(map)
 {
-    alert('Anem a emplenar markers');
-    var pins = $.ajax(
-        {
-            url:'pin',
-            async: false,
-            success:function(data){return data;}
-        });
+    //Obtenim el JSON amb els pins de l'usuari
+    var pins = $.ajax({url:'pin',async: false,success:function(data){return data;}});
     pins = JSON.parse(pins.responseText);
 
     for (var i=0;i<pins.length;i++)
     {
         var title = (pins[i].town != '') ? pins[i].town : pins[i].city;
-        new google.maps.Marker(
+        var marker = new google.maps.Marker(
             {
                 position: new google.maps.LatLng(pins[i].lat,pins[i].long),
                 map: map,
                 title: title
             });
+
+        var content = '<div>'+
+                        pins[i].city+
+                        pins[i].country+
+                        '</div>';
+
+        var infowindow = new google.maps.InfoWindow({content: content});
+        google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});
     }
+    return pins.length;
 }
 
 
@@ -244,4 +248,10 @@ function addPin()
             else
                 smoke.alert('That Pin was not been added');
         });
+}
+
+function firstPin()
+{
+    if (parseInt(sessionStorage.numPins) == 0)
+        smoke.alert('Add your first Pin!',{},function(){$('#add-pin').effect("shake", { times:10, distance:8 }, 1000);});
 }
