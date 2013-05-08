@@ -1,3 +1,19 @@
+$(function() {
+    $( "#dialog" ).dialog({
+        autoOpen: false,
+        show: {
+            effect: "blind",
+            duration: 1000
+        },
+        hide: {
+            effect: "explode",
+            duration: 1000
+        }
+    });
+    $( "#openphotos" ).click(function() {
+        $( "#dialog" ).dialog( "open" );
+    });
+});
 //Dropdown plugin data
 var ddData = [
     {
@@ -131,7 +147,7 @@ function openCloseSearchPins()
             data:ddData,
             width:300,
             height:300,
-            selectText: "Select your preferred social network",
+            selectText: "Pinned cities",
             onSelected: function(selectedData){
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(selectedData.selectedData.lat,selectedData.selectedData.lng),
@@ -140,16 +156,24 @@ function openCloseSearchPins()
                 });
                 mapa.setCenter(marker.getPosition());
                 mapa.setZoom(9);
+                setTimeout("$('#openphotos').effect('bounce', { times:10, distance:8 }, 1000);",1000);
+                $('#photoQuantity').html('6');
             }
         });
         $('#dropDown').css('padding-left','10px');
+        $('.buttons').show();
+        $('.photoAlbum').show();
+        setTimeout("$('#openphotos').effect('bounce', { times:10, distance:8 }, 1000);",1000);
+        $('#photoQuantity').html('3');
     }
     else
     {
         $('#searchPins').hide();
         $('#map_canvas').css('width','100%');
+        $('#photoAlbum').hide();
         $('#formlabel').hide();
         $('#formlabel').attr('onclick','hideForm('+2+')');
+        $('#dialog').hide();
     }
 }
 function emplenaInformacioLloc(place)
@@ -223,6 +247,7 @@ function hideForm(botoclicat)
             $('#formlabel').removeClass('formlabelshow');
             $('#map_canvas').css('width','100%');
             $('#formlabel').css('left','0');
+            $('#dialog').hide();
         }
     }
 

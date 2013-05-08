@@ -26,6 +26,14 @@
             span FIND PINS
         div#dropDown
             div#myDropdown
+        div(class="photoAlbum" ,style="margin-left:15px; margin-top:32px; display:none;")
+            label(class="normalText") Photos in this album:
+            label(id="photoQuantity")
+            img#openphotos(style="cursor:pointer;")
+        div(class="buttons", style=" margin-top:32px; display:none; text-align:center;")
+            img(type="button" ,src="../images/deletepin.png", style="cursor:pointer;" , title="Delete Pin",onclick="deletePin()")
+        div#dialog(title="Basic dialog")
+            p This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon
 
     div(id="formlabel", class="formlabelshow", style="display:none;", onclick="hideForm()")
     #map_canvas
