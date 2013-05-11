@@ -14,54 +14,30 @@ $(function() {
         $( "#dialog" ).dialog( "open" );
     });
 });
+$(document).ready(function(){
+    $("a[rel^='prettyPhoto']").prettyPhoto();
+    $.getJSON('/pin', function(data) {
+        $('#myDropdown').ddslick({
+            data:data,
+            width:300,
+            height:300,
+            selectText: "Pinned cities",
+            onSelected: function(selectedData){
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(selectedData.selectedData.lat,selectedData.selectedData.long),
+                    map: mapa,
+                    title: 'Click to zoom'
+                });
+                mapa.setCenter(marker.getPosition());
+                mapa.setZoom(11);
+                setTimeout("$('#openphotos').effect('bounce', { times:10, distance:8 }, 1000);",1000);
+                $('#photoQuantity').html('6');
+                $('#deletePin').attr('onclick','deletePin('+selectedData.selectedData._id+')');
+            }
+        });
+    });
+});
 //Dropdown plugin data
-var ddData = [
-    {
-        text: "Barcelona",
-        value: 1,
-        selected: true,
-        description: "Spain",
-        lat: 41.38506390,
-        lng: 2.17340350
-    },
-    {
-        text: "Madrid",
-        value: 2,
-        selected: false,
-        description: "Spain",
-        lat : 40.41677540,
-        lng : -3.70379020
-
-    },
-    {
-        text: "Letur",
-        value: 3,
-        selected: false,
-        description: "Albacete, Spain",
-        lat : 38.36562610,
-        lng : -2.10146190
-
-    },
-    {
-        text: "Lloret de Mar",
-        value: 4,
-        selected: false,
-        description: "Girona, Spain",
-        lat : 41.70015590,
-        lng : 2.84165750
-
-
-    },
-    {
-        text: "Blanes",
-        value: 4,
-        selected: false,
-        description: "Girona, Spain",
-        lat : 41.50015590,
-        lng : 2.64165750
-
-    }
-];
 
 function emplenaMarkersUsuari(map)
 {
@@ -142,29 +118,12 @@ function openCloseSearchPins()
         $('#searchPins').show();
         $('#settings-widget').hide();
         $('#formlabel').attr('onclick','hideForm('+2+')');
-
-        $('#myDropdown').ddslick({
-            data:ddData,
-            width:300,
-            height:300,
-            selectText: "Pinned cities",
-            onSelected: function(selectedData){
-                var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(selectedData.selectedData.lat,selectedData.selectedData.lng),
-                    map: mapa,
-                    title: 'Click to zoom'
-                });
-                mapa.setCenter(marker.getPosition());
-                mapa.setZoom(9);
-                setTimeout("$('#openphotos').effect('bounce', { times:10, distance:8 }, 1000);",1000);
-                $('#photoQuantity').html('6');
-            }
-        });
         $('#dropDown').css('padding-left','10px');
         $('.buttons').show();
         $('.photoAlbum').show();
         setTimeout("$('#openphotos').effect('bounce', { times:10, distance:8 }, 1000);",1000);
         $('#photoQuantity').html('3');
+
     }
     else
     {
@@ -261,6 +220,9 @@ function addPin()
             {
                 var lat =  parseFloat($('#coordenatesName > #lat').text()).toFixed(6);
                 var lng =  parseFloat($('#coordenatesName > #lng').text()).toFixed(6);
+                var town = $('#cityData #townName').text();
+                var city = $('#cityData #cityName').text();
+                var country = $('#cityData #countryName').text();
                 $.post(
                     'pin',
                     {
@@ -272,7 +234,11 @@ function addPin()
                     },
                     function(data)
                     {
-                        if (data.free) smoke.alert('Pin was added');
+                        if (data.free)
+                        {
+                            $('#pinnedCitys').append('<li onclick="showCity('+lat+','+lng+',\''+town+'\',\''+city+'\',\''+country+'\')"><a class="dd-option"> <label class="dd-option-text">'+$('#cityData #cityName').text()+'</label> <small class="dd-option-description dd-desc">'+$('#cityData #countryName').text()+'</small></a></li>');
+                            smoke.alert('Pin was added');
+                        }
                         else smoke.alert('Pin had already been added');
                     }
                 );
@@ -286,4 +252,17 @@ function firstPin()
 {
     if (parseInt(sessionStorage.numPins) == 0)
         smoke.alert('Add your first Pin!',{},function(){$('#add-pin').effect("shake", { times:10, distance:8 }, 1000);});
+}
+
+function showCity(lat,lng,town,city,country)
+{
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(lat,lng),
+        map: mapa,
+        title: 'Click to zoom'
+    });
+    mapa.setCenter(marker.getPosition());
+    mapa.setZoom(11);
+    setTimeout("$('#openphotos').effect('bounce', { times:10, distance:8 }, 1000);",1000);
+    $('#photoQuantity').html('6');
 }

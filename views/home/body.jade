@@ -23,7 +23,7 @@
                     img#addpin(type="button" ,src="../images/addpin.png", style="cursor:pointer;" , title="Add Pin",onclick="addPin()")
     #searchPins
         div(style="font-size:28px;font-family: 'Caesar Dressing';color:white;")
-            span FIND PINS
+            span YOUR PINS
         div#dropDown
             div#myDropdown
         div(class="photoAlbum" ,style="margin-left:15px; margin-top:32px; display:none;")
@@ -31,9 +31,17 @@
             label(id="photoQuantity")
             img#openphotos(style="cursor:pointer;")
         div(class="buttons", style=" margin-top:32px; display:none; text-align:center;")
-            img(type="button" ,src="../images/deletepin.png", style="cursor:pointer;" , title="Delete Pin",onclick="deletePin()")
+            img(type="button" ,src="../images/deletepin.png", style="cursor:pointer;" , title="Delete Pin",onclick="deletePin()",id="deletePin")
         div#dialog(title="Basic dialog")
-            p This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon
+            div.gallery
+                a(href="images/fullscreen/2.jpg", rel="prettyPhoto", style="margin-right:5px;", title="This is the description")
+                    img(src="images/thumbnails/t_2.jpg", width="60", height="60",alt="This is the title")
+                a(href="images/fullscreen/2.jpg", rel="prettyPhoto", style="margin-right:5px;", title="This is the description")
+                    img(src="images/thumbnails/t_2.jpg", width="60", height="60",alt="This is the title")
+                a(href="images/fullscreen/2.jpg", rel="prettyPhoto", style="margin-right:5px;", title="This is the description")
+                    img(src="images/thumbnails/t_2.jpg", width="60", height="60",alt="This is the title")
+                a(href="images/fullscreen/2.jpg", rel="prettyPhoto", style="margin-right:5px;", title="This is the description")
+                    img(src="images/thumbnails/t_2.jpg", width="60", height="60",alt="This is the title")
 
     div(id="formlabel", class="formlabelshow", style="display:none;", onclick="hideForm()")
     #map_canvas
