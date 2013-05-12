@@ -16,26 +16,6 @@ $(function() {
 });
 $(document).ready(function(){
     $("a[rel^='prettyPhoto']").prettyPhoto();
-    $.getJSON('/pin', function(data) {
-        $('#myDropdown').ddslick({
-            data:data,
-            width:300,
-            height:300,
-            selectText: "Pinned cities",
-            onSelected: function(selectedData){
-                var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(selectedData.selectedData.lat,selectedData.selectedData.long),
-                    map: mapa,
-                    title: 'Click to zoom'
-                });
-                mapa.setCenter(marker.getPosition());
-                mapa.setZoom(11);
-                setTimeout("$('#openphotos').effect('bounce', { times:10, distance:8 }, 1000);",1000);
-                $('#photoQuantity').html('6');
-                $('#deletePin').attr('onclick','deletePin('+selectedData.selectedData._id+')');
-            }
-        });
-    });
 });
 //Dropdown plugin data
 
@@ -121,8 +101,26 @@ function openCloseSearchPins()
         $('#dropDown').css('padding-left','10px');
         $('.buttons').show();
         $('.photoAlbum').show();
-        setTimeout("$('#openphotos').effect('bounce', { times:10, distance:8 }, 1000);",1000);
-        $('#photoQuantity').html('3');
+        $.getJSON('/pin', function(data) {
+            $('#myDropdown').ddslick({
+                data:data,
+                width:300,
+                height:300,
+                selectText: "Pinned cities",
+                onSelected: function(selectedData){
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(selectedData.selectedData.lat,selectedData.selectedData.long),
+                        map: mapa,
+                        title: 'Click to zoom'
+                    });
+                    mapa.setCenter(marker.getPosition());
+                    mapa.setZoom(11);
+                    setTimeout("$('#openphotos').effect('bounce', { times:10, distance:8 }, 1000);",1000);
+                    $('#photoQuantity').html('6');
+                    $('#deletePin').attr('onclick','esborraPin("'+selectedData.selectedData._id+'")');
+                }
+            });
+        });
 
     }
     else
@@ -211,7 +209,10 @@ function hideForm(botoclicat)
     }
 
 }
-
+function esborraPin(id)
+{
+    alert(id);
+}
 function addPin()
 {
     smoke.confirm('Do you want to add that Pin?',function(e)
@@ -266,3 +267,4 @@ function showCity(lat,lng,town,city,country)
     setTimeout("$('#openphotos').effect('bounce', { times:10, distance:8 }, 1000);",1000);
     $('#photoQuantity').html('6');
 }
+
