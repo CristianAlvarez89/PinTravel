@@ -211,7 +211,26 @@ function hideForm(botoclicat)
 }
 function esborraPin(id)
 {
-    alert(id);
+    smoke.confirm('Do you really want to remove that Pin?',function(e)
+    {
+        if (e)
+        {
+            $.ajax({
+                type: "delete",
+                url: "pin",
+                data: {id:id},
+                success: function(data)
+                {
+                    if (data.status == 'nok') smoke.alert('Something went bad.');
+                    else
+                    if (data.removed == true) smoke.alert('Your Pin was removed properly');
+                    else smoke.alert('Your Pin could not be deleted');
+                }
+            });
+        }
+        else
+            smoke.alert('You chose de best option :)');
+    });
 }
 function addPin()
 {

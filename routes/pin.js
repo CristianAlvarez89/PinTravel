@@ -34,16 +34,31 @@
         });
     };
 
-    //find pin by id
-    /*getPin = (function(req, res) {
-        Pin.findOne({user: req.params.id}, function(error, pin) {
-            res.send(pin);
-        })
-    });*/
+    //delete a user pin by id
+    deletePin = function(req, res) {
+        if (req.session.userID == undefined) res.send({status:'nok'});
+        else
+        {
+            Pin.findOne
+            (
+                 {userID:req.session.userID,_id:req.body.id},
+                 function(error, pin)
+                 {
+                     if (pin == null) res.send({status:'ok',removed:false});
+                     else
+                     {
+                         pin.remove();
+                         res.send({status:'ok',removed:true});
+                     }
+                 }
+            )
+        }
+    };
 
 
     /***    Pin API    ***/
 
     app.post('/pin', addPin);           //Guarda el pin al compte de l'usuari
     app.get('/pin', getPins);           //Obte els pins de l'usuari que te iniciada la sessio
+    app.delete('/pin', deletePin);  //Esborra el pin d'un usuari
 }
