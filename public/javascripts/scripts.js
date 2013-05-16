@@ -77,8 +77,10 @@ function openCloseAddCity()
         $('#formlabel').show();
         $('#formlabel').css('left','25%');
         $('#searchPins').hide();
+        $('#viewFriends').hide();
         $('#settings-widget').show();
         $('#formlabel').attr('onclick','hideForm('+1+')');
+
     }
     else
     {
@@ -86,6 +88,39 @@ function openCloseAddCity()
         $('#map_canvas').css('width','100%');
         $('#formlabel').hide();
         $('#formlabel').attr('onclick','hideForm('+1+')');
+    }
+}
+function openCloseViewFriends()
+{
+    if($('#viewFriends').css('display') == 'none')
+    {
+        $('#map_canvas').css('width','75%');
+        $.getJSON('/users', function(data) {
+            var availableFriends = [];
+            for(var i = 0; i<data.length;i++)
+            {
+                availableFriends.push(data[i].username);
+            }
+
+            $( "#friendsSearch" ).autocomplete({
+                source: availableFriends
+            });
+
+            $('#formlabel').show();
+            $('#formlabel').css('left','25%');
+            $('#viewFriends').show();
+            $('#searchPins').hide();
+            $('#settings-widget').hide();
+            $('#formlabel').attr('onclick','hideForm('+3+')');
+        });
+
+    }
+    else
+    {
+        $('#viewFriends').hide();
+        $('#map_canvas').css('width','100%');
+        $('#formlabel').hide();
+        $('#formlabel').attr('onclick','hideForm('+3+')');
     }
 }
 function openCloseSearchPins()
@@ -97,10 +132,8 @@ function openCloseSearchPins()
         $('#formlabel').css('left','25%');
         $('#searchPins').show();
         $('#settings-widget').hide();
+        $('#viewFriends').hide();
         $('#formlabel').attr('onclick','hideForm('+2+')');
-        $('#dropDown').css('padding-left','10px');
-        $('.buttons').show();
-        $('.photoAlbum').show();
         $.getJSON('/pin', function(data) {
             $('#myDropdown').ddslick({
                 data:data,
@@ -115,7 +148,10 @@ function openCloseSearchPins()
                     });
                     mapa.setCenter(marker.getPosition());
                     mapa.setZoom(11);
-                    setTimeout("$('#openphotos').effect('bounce', { times:10, distance:8 }, 1000);",1000);
+                    setTimeout("$('#openphotos').effect('bounce', { times:10, distance:8 }, 1000);",1000)
+                    $('#dropDown').css('padding-left','10px');
+                    $('.buttons').show();
+                    $('.photoAlbum').show();
                     $('#photoQuantity').html('6');
                     $('#deletePin').attr('onclick','esborraPin("'+selectedData.selectedData._id+'")');
                 }
@@ -207,6 +243,26 @@ function hideForm(botoclicat)
             $('#dialog').hide();
         }
     }
+    else if(botoclicat == 3)
+    {
+        if($('#viewFriends').css('display') == 'none')
+        {
+            $('#map_canvas').css('width','75%');
+            $('#formlabel').removeClass('formlabelhide');
+            $('#formlabel').addClass('formlabelshow');
+            $('#viewFriends').show();
+            $('#formlabel').css('left','25%');
+        }
+        else
+        {
+            $('#viewFriends').hide();
+            $('#formlabel').addClass('formlabelhide');
+            $('#formlabel').removeClass('formlabelshow');
+            $('#map_canvas').css('width','100%');
+            $('#formlabel').css('left','0');
+            $('#dialog').hide();
+        }
+    }
 
 }
 function esborraPin(id)
@@ -256,8 +312,13 @@ function addPin()
                     {
                         if (data.free)
                         {
-                            $('#pinnedCitys').append('<li onclick="showCity('+lat+','+lng+',\''+town+'\',\''+city+'\',\''+country+'\')"><a class="dd-option"> <label class="dd-option-text">'+$('#cityData #cityName').text()+'</label> <small class="dd-option-description dd-desc">'+$('#cityData #countryName').text()+'</small></a></li>');
                             smoke.alert('Pin was added');
+                            $('#pinnedCitys').append('<li onclick="showCity('+lat+','+lng+',\''+town+'\',\''+city+'\',\''+country+'\')"><a class="dd-option"> <label class="dd-option-text">'+$('#cityData #cityName').text()+'</label> <small class="dd-option-description dd-desc">'+$('#cityData #countryName').text()+'</small></a></li>');
+                            $('#townName').html('');
+                            $('#cityName').html('');
+                            $('#countryName').html('');
+                            $('#cityData').hide();
+                            $('#textciutat').html();
                         }
                         else smoke.alert('Pin had already been added');
                     }
@@ -287,3 +348,21 @@ function showCity(lat,lng,town,city,country)
     $('#photoQuantity').html('6');
 }
 
+function showUserInfo(usuari)
+{
+    alert($('#userInformation').html());
+    if($('#userInformation').html() == undefined)
+    {
+        $('#friendsList').append('<div id="userInformation" >');
+        $('#friendsList').append("<div style='width:50%; display:table-row;'></div>");
+        $('#friendsList').append("<div style='display:table-cell;'></div>");
+        $('#friendsList').append("<img style='vertical-align:middle;' src = 'images/noimageuser.png' />");
+        $('#friendsList').append('<span  id="nomUsuari" style="font-size:12px; font-family: Caesar Dressing ;color:white;">'+usuari + '</span>');
+        $('#friendsList').append("<div style='clear:both;'></div>");
+        $('#friendsList').append('</div>');
+    }
+    else
+    {
+        $('#nomUsuari').html(usuari);
+    }
+}
