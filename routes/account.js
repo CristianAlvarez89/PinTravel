@@ -4,7 +4,7 @@
 
     //Obte tots els noms dusuari de la base de dades
     getUsers = function(req, res){
-        Users.find({},'username',function(error, users) {
+        Users.find({_id:{$ne:req.session.userID}},'username',function(error, users) {
             console.log('Error: '+error);
             console.log('Users: '+users);
             res.send(users);
