@@ -8,6 +8,12 @@
 
 script
     if ("#{new_user}")
-        smoke.alert("Welcome to PinTravel!!",{},function(){firstPin();});
-    else
-        smoke.alert("Hi #{username}",{},function(){firstPin();});
+        smoke.alert("Welcome to PinTravel!!",{},function(){firstPin();resetSession();});
+    else if ("#{imageupload}")
+        smoke.alert("#{imageupload}",{},function(){firstPin();resetSession();});
+    else if ("#{newLogIn}")
+        smoke.alert("Hi #{username}",{},function(){firstPin();resetSession();});
+    function resetSession()
+    {
+        $.ajax({method:'post',url:'reset',succes:function(data){alert(data);}});
+    }

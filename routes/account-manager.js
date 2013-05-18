@@ -91,10 +91,10 @@ function doSignIn(req,res)
                 var cipher = crypto.createCipher(algorithm, key);
                 var encrypted = cipher.update(req.body.pass, 'utf8', 'hex') + cipher.final('hex');
                 if (obj.pass == encrypted)
-                {           console.log('Pass equal');
+                {
                     req.session.username = obj.username;
                     req.session.userID = obj._id;
-                    console.log(obj._id);
+                    req.session.newLogIn = 'true';
                     json_result.signin = true;
                 }
                 else
@@ -209,6 +209,7 @@ function addNewUser(req, res, json_result, callback)
                             }
                             else
                             {
+                                fs.mkdir('users/'+req.body.username);
                                 json_result.signup = true;
                                 req.session.username = req.body.username;
                                 req.session.userID = obj._id;
