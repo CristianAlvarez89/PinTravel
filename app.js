@@ -7,9 +7,11 @@ var express = require('express')
     mongoose = require('mongoose'),
     index = require('./routes/index'),
     am = require('./routes/account-manager'),
+    fm = require('./routes/file-manager'),
     wines = require('./routes/wines'),
     http = require('http'),
-    path = require('path');
+    path = require('path'),
+    fs = require('fs');
 
 var app = express();
 
@@ -26,6 +28,7 @@ app.configure(function(){
   app.use(app.router);
   app.use(require('stylus').middleware(__dirname + '/public'));
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static('users'));
 });
 
 app.configure('development', function(){
@@ -35,11 +38,17 @@ app.configure('development', function(){
 /***    Inici Aplicacio    ***/
 app.get('/', index.inici);      //Inicia l'aplicacio
 app.get('/home', index.home);   //Mostra la pàgina inicial si l'usuari no ha fet el SignIn i la part interna si sí ho ha fet.
+app.post('/reset', index.reset);//Permet buidar parametres de la sessio que no es fan servir
 
 
 /***    Account Manager    ***/
 app.post('/sign',am.sign);      //Permet a l'usuari iniciar la sessio en l'aplicacio
 app.get('/logout',am.logout);   //Permet a l'usuari tancar la sessio
+
+/***    File Manager    ***/
+app.post('/upload',fm.upload);              //Permet a l'usuari pujar una fotografia
+app.get('/images',fm.getImg);               //Obte la ruta de totes les imatges de l'usuari
+app.delete('/image/:pinid/:imgname',fm.rmImg); //Elimina una imatge de l'usuari
 
 
 /*
@@ -53,6 +62,7 @@ app.delete('/wines/:id',wines.deleteWine);
 
 pin = require('./routes/pin')(app);
 users = require('./routes/account')(app);
+friends = require('./routes/friend')(app);
 
 mongoose.connect('mongodb://localhost/pintravel');
 

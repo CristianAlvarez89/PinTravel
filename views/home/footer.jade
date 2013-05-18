@@ -3,6 +3,29 @@
         a#add-pin(title='Add a new Pin',onclick="openCloseAddCity()")
         a#search(title='Search a Pin',onclick="openCloseSearchPins()")
         a#friends(title='My friends',onclick="openCloseViewFriends()")
-        a#photos(title='My albums')
+        a#photos(title='My albums', href="javascript:;")
     .user-tools(style="float:right")
         a#maptype(title='Map type', style='cursor:pointer;')
+    .user-tools
+        form#filess(action="/upload",method="post",enctype="multipart/form-data")
+            input(type='file', name='imatge')
+            button#submitimage(type='button') New
+
+script
+    $('div.user-tools > a#photos').click(function()
+    {
+        $.ajax({
+            url:'images',
+            dataType: 'text',
+            success:function(data)
+            {
+                var dataXsplit = data.split(',');
+                var dataXarrayObj = new Array(), i;
+                for(i in dataXsplit){
+                    dataXsplit[i] = dataXsplit[i].replace(";",",");
+                    dataXarrayObj[i] = $.parseJSON(dataXsplit[i]);
+                }
+                $.fancybox(dataXarrayObj);
+            }
+        });
+    });
