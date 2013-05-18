@@ -96,6 +96,7 @@ function openCloseViewFriends()
     {
         $('#map_canvas').css('width','75%');
         $.getJSON('/users', function(data) {
+            $('#pintravelUsersNumber').html(data.length + " users in Pintravel!");
             var availableFriends = [];
             for(var i = 0; i<data.length;i++)
             {
@@ -350,7 +351,7 @@ function showCity(lat,lng,town,city,country)
 
 function showUserInfo(usuari)
 {
-    alert($('#userInformation').html());
+    var usuariAmic = true;
     if($('#userInformation').html() == undefined)
     {
         $('#friendsList').append('<div id="userInformation" >');
@@ -358,11 +359,51 @@ function showUserInfo(usuari)
         $('#friendsList').append("<div style='display:table-cell;'></div>");
         $('#friendsList').append("<img style='vertical-align:middle;' src = 'images/noimageuser.png' />");
         $('#friendsList').append('<span  id="nomUsuari" style="font-size:12px; font-family: Caesar Dressing ;color:white;">'+usuari + '</span>');
+        if(usuariAmic)
+        {
+            $('#friendsList').append('<img id="viewFriendButton" src="images/viewFriend.png" style="vertical-align:middle; cursor:pointer;">');
+            $('#friendsList').append('<img id="deleteFriendButton" src="images/deleteFriend.png" style="vertical-align:middle; cursor:pointer;">');
+            $('#viewFriendButton').attr('onclick','openFriendInfo("'+$('#friendsSearch').val()+'")');
+            $('#deleteFriendButton').attr('onclick','deleteFriend("'+$('#friendsSearch').val()+'")');
+        }
+        else
+        {
+            $('#friendsList').append('<img id="addFriendButton" src="images/addFriend.png" style="vertical-align:middle; cursor:pointer;">');
+            $('#addFriendButton').attr('onclick','addUserFriend("'+$('#friendsSearch').val()+'")');
+        }
         $('#friendsList').append("<div style='clear:both;'></div>");
         $('#friendsList').append('</div>');
     }
     else
     {
         $('#nomUsuari').html(usuari);
+        if(usuariAmic)
+        {
+            $('#viewFriendButton').attr('onclick','openFriendInfo("'+$('#friendsSearch').val()+'")');
+            $('#viewFriendButton').show();
+            $('#deleteFriendButton').attr('onclick','deleteFriend("'+$('#friendsSearch').val()+'")');
+            $('#deleteFriendButton').show();
+            $('#addFriendButton').hide();
+        }
+        else
+        {
+            $('#addFriendButton').attr('onclick','addUserFriend("'+$('#friendsSearch').val()+'")');
+            $('#addFriendButton').show();
+            $('#viewFriendButton').hide();
+            $('#deleteFriendButton').hide();
+        }
     }
+}
+function addUserFriend(nomUsuari)
+{
+    alert('FUNCION PARA AÑADIR A ' + nomUsuari + ' COMO AMIGO, QUIZA CON UN SMOKE DE CONFIRMACION Y ENVIAR LOS DATOS VIA JSON A BDD ES SUFICIENTE');
+}
+
+function openFriendInfo(nomUsuari)
+{
+    alert('FUNCION PARA VER INFORMACION DEL USUARIO ' +  nomUsuari + ' QUIZAS ABRIR UN POPUP I MOSTRAR INFORMACION COMO SUS FOTOS I DND HA HECHO PIN');
+}
+function deleteFriend(nomUsuari)
+{
+    alert('FUNCION PARA ELIMINAR A ' + nomUsuari + ' COMO AMIGO, QUIZA CON UN SMOKE DE CONFIRMACION Y ENVIAR LOS DATOS VIA JSON A BDD ES SUFICIENTE');
 }

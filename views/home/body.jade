@@ -44,10 +44,10 @@
                     img(src="images/thumbnails/t_2.jpg", width="60", height="60",alt="This is the title")
     #viewFriends
         div(style="font-size:28px;font-family: 'Caesar Dressing';color:white;")
-            span 5 friends
+            span#pintravelUsersNumber friends
         div#friendsList(style="margin-left: 32px;")
             div.ui-widget(style="margin-bottom:32px;")
-                label(for="friendsSearch", style="font-size:12px;font-family: 'Caesar Dressing';color:white;") Search in pintravel users list:
+                label(for="friendsSearch", style="font-size:16px;font-family: 'Caesar Dressing';color:white; vertical-align: middle;") Search in pintravel users list:
                 input#friendsSearch
                 img(src="images/searchlupe.gif", style="vertical-align:middle; cursor:pointer;", onclick="showUserInfo($('#friendsSearch').val())")
     div(id="formlabel", class="formlabelshow", style="display:none;", onclick="hideForm()")
