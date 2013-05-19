@@ -302,7 +302,7 @@ function esborraPin(id)
                 {
                     if (data.status == 'nok') smoke.alert('Something went bad.');
                     else
-                    if (data.removed == true) smoke.alert('Your Pin was removed properly');
+                    if (data.removed == true) smoke.alert('Your Pin was removed properly',{},function(){window.location = 'home';});
                     else smoke.alert('Your Pin could not be deleted');
                 }
             });

@@ -22,13 +22,11 @@ exports.home = function(req, res){
                 imageupload: req.session.uploadimage,
                 newLogIn: req.session.newLogIn
             });
-
-    //res.render('home/index', {username: 'username', new_user: false});
 };
 
 exports.reset = function(req, res){
     req.session.new_user = null;
-    req.session.imageupload = null;
+    req.session.uploadimage = null;
     req.session.newLogIn = null;
     res.send('ok');
 };

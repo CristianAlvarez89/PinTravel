@@ -15,5 +15,5 @@ script
         smoke.alert("Hi #{username}",{},function(){firstPin();resetSession();});
     function resetSession()
     {
-        $.ajax({method:'post',url:'reset',succes:function(data){alert(data);}});
+        $.post('reset');
     }

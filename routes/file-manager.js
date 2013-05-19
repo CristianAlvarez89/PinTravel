@@ -16,7 +16,6 @@ exports.upload = function(req, res)
 
         if (err) req.session.uploadimage = "Image could not be uploaded";
         else req.session.uploadimage = "Image was uploaded properly ";
-        console.log(req.session.uploadimage);
         res.redirect('home');
     });
 };
