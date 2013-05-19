@@ -60,6 +60,7 @@
                      if (pin == null) res.send({status:'ok',removed:false});
                      else
                      {
+                         deletePinFolder('users/'+req.session.username+'/'+pin._id);
                          pin.remove();
                          res.send({status:'ok',removed:true});
                      }
@@ -75,4 +76,22 @@
     app.get('/pin', getPins);           //Obte els pins de l'usuari que te iniciada la sessio
     app.get('/pin/:id', getUserPins);   //Obte els pins d'un usuari
     app.delete('/pin', deletePin);      //Esborra el pin d'un usuari
+}
+
+
+
+function deletePinFolder(dir)
+{
+    console.log('Delte folder -> '+dir);
+    if( fs.existsSync(dir) ) {
+        fs.readdirSync(dir).forEach(function(file,index){
+            var curPath = dir + "/" + file;
+            if(fs.statSync(curPath).isDirectory()) { // recurse
+                deletePinFolder(curPath);
+            } else { // delete file
+                fs.unlinkSync(curPath);
+            }
+        });
+        fs.rmdirSync(dir);
+    }
 }
