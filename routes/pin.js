@@ -20,6 +20,7 @@
                             country:    req.body.country
                         });
                     pin.save();
+                    fs.mkdir('users/'+req.body.username+'/'+pin._id);
                     res.send({free:true});
                 }
                 else

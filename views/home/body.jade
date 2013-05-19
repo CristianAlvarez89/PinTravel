@@ -27,21 +27,16 @@
         div#dropDown
             div#myDropdown
         div(class="photoAlbum" ,style="margin-left:15px; margin-top:32px; display:none;")
+            form#filess(action="/upload",method="post",enctype="multipart/form-data")
+                input(type='file', name='imatge')
+                input#imgUploadPinID(type='hidden', name='imgUploadPinID')
+                input#imgUploadPinName(type='hidden', name='imgUploadPinName')
+                input#submitimage(type='submit',value="Add photo")
             label(class="normalText") Photos in this album:
             label(id="photoQuantity")
             img#openphotos(style="cursor:pointer;")
         div(class="buttons", style=" margin-top:32px; display:none; text-align:center;")
             img(type="button" ,src="../images/deletepin.png", style="cursor:pointer;" , title="Delete Pin",onclick="deletePin()",id="deletePin")
-        div#dialog(title="Basic dialog")
-            div.gallery
-                a(href="images/fullscreen/2.jpg", rel="prettyPhoto", style="margin-right:5px;", title="This is the description")
-                    img(src="images/thumbnails/t_2.jpg", width="60", height="60",alt="This is the title")
-                a(href="images/fullscreen/2.jpg", rel="prettyPhoto", style="margin-right:5px;", title="This is the description")
-                    img(src="images/thumbnails/t_2.jpg", width="60", height="60",alt="This is the title")
-                a(href="images/fullscreen/2.jpg", rel="prettyPhoto", style="margin-right:5px;", title="This is the description")
-                    img(src="images/thumbnails/t_2.jpg", width="60", height="60",alt="This is the title")
-                a(href="images/fullscreen/2.jpg", rel="prettyPhoto", style="margin-right:5px;", title="This is the description")
-                    img(src="images/thumbnails/t_2.jpg", width="60", height="60",alt="This is the title")
     #viewFriends
         div(style="font-size:28px;font-family: 'Caesar Dressing';color:white;")
             span#pintravelUsersNumber friends
@@ -57,3 +52,6 @@
 
 script
     $('.fancybox').fancybox();
+
+script
+    $('#submitimage').click(function(){('#filess').submit();});

@@ -155,6 +155,9 @@ function openCloseSearchPins()
                     $('.photoAlbum').show();
                     $('#photoQuantity').html('6');
                     $('#deletePin').attr('onclick','esborraPin("'+selectedData.selectedData._id+'")');
+                    $('#imgUploadPinID').attr('value',selectedData.selectedData._id);
+                    if (selectedData.selectedData.town != '') $('#imgUploadPinName').attr('value',selectedData.selectedData.town);
+                    else $('#imgUploadPinName').attr('value',selectedData.selectedData.city);
                 }
             });
         });

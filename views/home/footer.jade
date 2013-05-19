@@ -6,10 +6,6 @@
         a#photos(title='My albums', href="javascript:;")
     .user-tools(style="float:right")
         a#maptype(title='Map type', style='cursor:pointer;')
-    .user-tools
-        form#filess(action="/upload",method="post",enctype="multipart/form-data")
-            input(type='file', name='imatge')
-            button#submitimage(type='button') New
 
 script
     $('div.user-tools > a#photos').click(function()

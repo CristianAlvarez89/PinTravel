@@ -5,7 +5,9 @@
 exports.upload = function(req, res)
 {
     var tmp_path = req.files.imatge.path;
-    var target_path = 'users/'+req.session.username+'/pinid/'+req.files.imatge.name;
+    var nom_imatge = req.body.imgUploadPinName+"__"+Date.now()+req.files.imatge.name.substr(req.files.imatge.name.lastIndexOf('.'),req.files.imatge.name.length);
+    console.log("Pin ID: "+req.body.imgUploadPinID);
+    var target_path = 'users/'+req.session.username+'/'+req.body.imgUploadPinID+'/'+nom_imatge;
 
     fs.rename(tmp_path, target_path, function(err)
     {
@@ -63,7 +65,7 @@ exports.getImg = function(req, res)
         {
             var href = results[i].substr(results[i].indexOf('/')+1,results[i].length-6);
             var name = results[i].substr(results[i].lastIndexOf('/')+1,results[i].lastIndexOf('.')-results[i].lastIndexOf('/')-1);
-            result += '{"href":"'+href+'";"title":"'+name+'"},';
+            result += '{"href":"'+href+'";"title":"'+name.substr(0,name.lastIndexOf('__'))+'"},';
         }
         result = result.substr(0,result.length-1);
         res.send(result);
