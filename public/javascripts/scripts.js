@@ -397,11 +397,17 @@ function showUserInfo(usuari)
             {
                 $('#friendsList').append('<img id="viewFriendButton" src="images/viewFriend.png" style="vertical-align:middle; cursor:pointer;">');
                 $('#friendsList').append('<img id="deleteFriendButton" src="images/deleteFriend.png" style="vertical-align:middle; cursor:pointer;">');
+                $('#friendsList').append('<img id="addFriendButton" src="images/addFriend.png" style="vertical-align:middle; cursor:pointer;">');
+                $('#addFriendButton').hide();
                 $('#viewFriendButton').attr('onclick','openFriendInfo("'+nomusuari+'", "'+idusuari+'")');
                 $('#deleteFriendButton').attr('onclick','deleteFriend("'+nomusuari+'", "'+idusuari+'")');
             }
             else
             {
+                $('#friendsList').append('<img id="viewFriendButton" src="images/viewFriend.png" style="vertical-align:middle; cursor:pointer;">');
+                $('#friendsList').append('<img id="deleteFriendButton" src="images/deleteFriend.png" style="vertical-align:middle; cursor:pointer;">');
+                $('#viewFriendButton').hide();
+                $('#deleteFriendButton').hide();
                 $('#friendsList').append('<img id="addFriendButton" src="images/addFriend.png" style="vertical-align:middle; cursor:pointer;">');
                 $('#addFriendButton').attr('onclick','addUserFriend("'+nomusuari+'", "'+idusuari+'")');
             }
