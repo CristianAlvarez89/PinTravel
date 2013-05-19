@@ -10,8 +10,26 @@ $(function() {
             duration: 1000
         }
     });
-    $( "#openphotos" ).click(function() {
-        $( "#dialog" ).dialog( "open" );
+    $( "#openphotos" ).click(function(){
+        var pinID = $(this).attr('pin');
+        $.ajax({
+            url:'images/pin/'+pinID,
+            dataType: 'text',
+            success:function(data)
+            {
+                if (data == 'nok') smoke.alert('You have to add your first image');
+                else
+                {
+                    var dataXsplit = data.split(',');
+                    var dataXarrayObj = new Array(), i;
+                    for(i in dataXsplit){
+                        dataXsplit[i] = dataXsplit[i].replace(";",",");
+                        dataXarrayObj[i] = $.parseJSON(dataXsplit[i]);
+                    }
+                    $.fancybox(dataXarrayObj);
+                }
+            }
+        });
     });
 });
 $(document).ready(function(){
@@ -158,6 +176,7 @@ function openCloseSearchPins()
                     $('#imgUploadPinID').attr('value',selectedData.selectedData._id);
                     if (selectedData.selectedData.town != '') $('#imgUploadPinName').attr('value',selectedData.selectedData.town);
                     else $('#imgUploadPinName').attr('value',selectedData.selectedData.city);
+                    $('#openphotos').attr('pin',selectedData.selectedData._id);
                 }
             });
         });

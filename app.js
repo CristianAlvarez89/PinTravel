@@ -48,6 +48,7 @@ app.get('/logout',am.logout);   //Permet a l'usuari tancar la sessio
 /***    File Manager    ***/
 app.post('/upload',fm.upload);              //Permet a l'usuari pujar una fotografia
 app.get('/images',fm.getImg);               //Obte la ruta de totes les imatges de l'usuari
+app.get('/images/pin/:id',fm.getImgPin);      //Obte la ruta de les imatges del pin de l'usuari
 app.delete('/image/:pinid/:imgname',fm.rmImg); //Elimina una imatge de l'usuari
 
 
