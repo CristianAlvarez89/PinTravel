@@ -351,59 +351,135 @@ function showCity(lat,lng,town,city,country)
 
 function showUserInfo(usuari)
 {
-    var usuariAmic = true;
-    if($('#userInformation').html() == undefined)
-    {
-        $('#friendsList').append('<div id="userInformation" >');
-        $('#friendsList').append("<div style='width:50%; display:table-row;'></div>");
-        $('#friendsList').append("<div style='display:table-cell;'></div>");
-        $('#friendsList').append("<img style='vertical-align:middle;' src = 'images/noimageuser.png' />");
-        $('#friendsList').append('<span  id="nomUsuari" style="font-size:12px; font-family: Caesar Dressing ;color:white;">'+usuari + '</span>');
-        if(usuariAmic)
-        {
-            $('#friendsList').append('<img id="viewFriendButton" src="images/viewFriend.png" style="vertical-align:middle; cursor:pointer;">');
-            $('#friendsList').append('<img id="deleteFriendButton" src="images/deleteFriend.png" style="vertical-align:middle; cursor:pointer;">');
-            $('#viewFriendButton').attr('onclick','openFriendInfo("'+$('#friendsSearch').val()+'")');
-            $('#deleteFriendButton').attr('onclick','deleteFriend("'+$('#friendsSearch').val()+'")');
-        }
-        else
-        {
-            $('#friendsList').append('<img id="addFriendButton" src="images/addFriend.png" style="vertical-align:middle; cursor:pointer;">');
-            $('#addFriendButton').attr('onclick','addUserFriend("'+$('#friendsSearch').val()+'")');
-        }
-        $('#friendsList').append("<div style='clear:both;'></div>");
-        $('#friendsList').append('</div>');
-    }
+    var user = $.ajax({url:'users/'+usuari,async:false,success:function(data){return data}});
+    user = JSON.parse(user.responseText);
+    var nomusuari = (user.status == 'ok' && user.found == true) ? user.user : false;
+
+    if (usuari == '') smoke.alert('Type a name');
+    else if (!nomusuari) smoke.alert('Sorry, that user does not found.');
     else
     {
-        $('#nomUsuari').html(usuari);
-        if(usuariAmic)
+        var idusuari = user.userID;
+        var usuariAmic = $.ajax({url:'friends/'+idusuari,async:false,success:function(data){return data}});
+        usuariAmic = JSON.parse(usuariAmic.responseText);
+        usuariAmic = usuariAmic.friend;
+        console.log(usuariAmic);
+
+        if($('#userInformation').html() == undefined)
         {
-            $('#viewFriendButton').attr('onclick','openFriendInfo("'+$('#friendsSearch').val()+'")');
-            $('#viewFriendButton').show();
-            $('#deleteFriendButton').attr('onclick','deleteFriend("'+$('#friendsSearch').val()+'")');
-            $('#deleteFriendButton').show();
-            $('#addFriendButton').hide();
+            $('#friendsList').append('<div id="userInformation" >');
+            $('#friendsList').append("<div style='width:50%; display:table-row;'></div>");
+            $('#friendsList').append("<div style='display:table-cell;'></div>");
+            $('#friendsList').append("<img style='vertical-align:middle;' src = 'images/noimageuser.png' />");
+            $('#friendsList').append('<span  id="nomUsuari" style="font-size:12px; font-family: Caesar Dressing ;color:white;">'+usuari + '</span>');
+            if(usuariAmic)
+            {
+                $('#friendsList').append('<img id="viewFriendButton" src="images/viewFriend.png" style="vertical-align:middle; cursor:pointer;">');
+                $('#friendsList').append('<img id="deleteFriendButton" src="images/deleteFriend.png" style="vertical-align:middle; cursor:pointer;">');
+                $('#viewFriendButton').attr('onclick','openFriendInfo("'+nomusuari+'", "'+idusuari+'")');
+                $('#deleteFriendButton').attr('onclick','deleteFriend("'+nomusuari+'", "'+idusuari+'")');
+            }
+            else
+            {
+                $('#friendsList').append('<img id="addFriendButton" src="images/addFriend.png" style="vertical-align:middle; cursor:pointer;">');
+                $('#addFriendButton').attr('onclick','addUserFriend("'+nomusuari+'", "'+idusuari+'")');
+            }
+            $('#friendsList').append("<div style='clear:both;'></div>");
+            $('#friendsList').append('</div>');
         }
         else
         {
-            $('#addFriendButton').attr('onclick','addUserFriend("'+$('#friendsSearch').val()+'")');
-            $('#addFriendButton').show();
-            $('#viewFriendButton').hide();
-            $('#deleteFriendButton').hide();
+            $('#nomUsuari').html(usuari);
+            if(usuariAmic)
+            {
+                $('#viewFriendButton').attr('onclick','openFriendInfo("'+nomusuari+'", "'+idusuari+'")');
+                $('#viewFriendButton').show();
+                $('#deleteFriendButton').attr('onclick','deleteFriend("'+nomusuari+'", "'+idusuari+'")');
+                $('#deleteFriendButton').show();
+                $('#addFriendButton').hide();
+            }
+            else
+            {
+                $('#addFriendButton').attr('onclick','addUserFriend("'+nomusuari+'", "'+idusuari+'")');
+                $('#addFriendButton').show();
+                $('#viewFriendButton').hide();
+                $('#deleteFriendButton').hide();
+            }
         }
     }
 }
-function addUserFriend(nomUsuari)
+function addUserFriend(nomusuari, idusuari)
 {
-    alert('FUNCION PARA AÑADIR A ' + nomUsuari + ' COMO AMIGO, QUIZA CON UN SMOKE DE CONFIRMACION Y ENVIAR LOS DATOS VIA JSON A BDD ES SUFICIENTE');
+    smoke.confirm('Would you like to add '+nomusuari+' to your friends?',function(e)
+    {
+        if (e)
+        {
+            $.post(
+                'friends',
+                {friendID:idusuari},
+                function(data)
+                {
+                    if (!data.status) smoke.alert('Friend could not be added');
+                    else
+                    {
+                        $('#addFriendButton').hide();
+                        $('#friendsList').append('<img id="viewFriendButton" src="images/viewFriend.png" style="vertical-align:middle; cursor:pointer;">');
+                        $('#friendsList').append('<img id="deleteFriendButton" src="images/deleteFriend.png" style="vertical-align:middle; cursor:pointer;">');
+                        $('#viewFriendButton').attr('onclick','openFriendInfo("'+nomusuari+'", "'+idusuari+'")');
+                        $('#deleteFriendButton').attr('onclick','deleteFriend("'+nomusuari+'", "'+idusuari+'")');
+                        smoke.alert('Friend was added');
+                    }
+                }
+            );
+        }
+        else smoke.alert('It is your choise');
+    });
 }
 
-function openFriendInfo(nomUsuari)
+function openFriendInfo(nomusuari,idusuari)
 {
-    alert('FUNCION PARA VER INFORMACION DEL USUARIO ' +  nomUsuari + ' QUIZAS ABRIR UN POPUP I MOSTRAR INFORMACION COMO SUS FOTOS I DND HA HECHO PIN');
+    $.ajax(
+        {
+            url:'pin/'+idusuari,
+            success:function(data)
+            {
+                $('#friendsPinsInformation').text('');
+                $('#friendsPinsInformation').prepend('<a class="fancybox" href="#inline1" title=""></a>');
+                var info = "";
+
+                for (var i=0;i<data.length;i++)
+                {
+                    if (data[i].town != '') info += (i+1)+": "+data[i].town+", "+data[i].city+", "+data[i].country+"<br>";
+                    else info += (i+1)+": "+data[i].city+", "+data[i].country+"<br>";
+                }
+                $('#friendsPinsInformation').text(info);
+                $.fancybox.open(info,{title:nomusuari+"'s Pins"});
+            }
+        });
 }
-function deleteFriend(nomUsuari)
+function deleteFriend(nomusuari,idusuari)
 {
-    alert('FUNCION PARA ELIMINAR A ' + nomUsuari + ' COMO AMIGO, QUIZA CON UN SMOKE DE CONFIRMACION Y ENVIAR LOS DATOS VIA JSON A BDD ES SUFICIENTE');
+    smoke.confirm('Are you plenty sure you want to remove that friend from your friends?',function(e)
+    {
+        if (e)
+        {
+            $.ajax({
+                url:'friends/'+idusuari,
+                method:'delete',
+                success:function(data)
+                {
+                    if (!data.removed) smoke.alert('Friend could not be removed');
+                    else
+                    {
+                        $('#addFriendButton').attr('onclick','addUserFriend("'+nomusuari+'", "'+idusuari+'")');
+                        $('#addFriendButton').show();
+                        $('#viewFriendButton').hide();
+                        $('#deleteFriendButton').hide();
+                        smoke.alert('Friend was removed');
+                    }
+                }
+            });
+        }
+        else smoke.alert('Nice :)');
+    });
 }

@@ -50,5 +50,10 @@
                 label(for="friendsSearch", style="font-size:16px;font-family: 'Caesar Dressing';color:white; vertical-align: middle;") Search in pintravel users list:
                 input#friendsSearch(autofocus="autofocus")
                 img(src="images/searchlupe.gif", style="vertical-align:middle; cursor:pointer;", onclick="showUserInfo($('#friendsSearch').val())")
+            div#friendsPinsInformation(style="display:none")
     div(id="formlabel", class="formlabelshow", style="display:none;", onclick="hideForm()")
     #map_canvas
+
+
+script
+    $('.fancybox').fancybox();

@@ -19,13 +19,17 @@ script
             dataType: 'text',
             success:function(data)
             {
-                var dataXsplit = data.split(',');
-                var dataXarrayObj = new Array(), i;
-                for(i in dataXsplit){
-                    dataXsplit[i] = dataXsplit[i].replace(";",",");
-                    dataXarrayObj[i] = $.parseJSON(dataXsplit[i]);
+                if (data == '') smoke.alert('You have to add your first image');
+                else
+                {
+                    var dataXsplit = data.split(',');
+                    var dataXarrayObj = new Array(), i;
+                    for(i in dataXsplit){
+                        dataXsplit[i] = dataXsplit[i].replace(";",",");
+                        dataXarrayObj[i] = $.parseJSON(dataXsplit[i]);
+                    }
+                    $.fancybox(dataXarrayObj);
                 }
-                $.fancybox(dataXarrayObj);
             }
         });
     });
