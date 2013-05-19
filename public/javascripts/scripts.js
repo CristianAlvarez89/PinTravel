@@ -341,7 +341,6 @@ function addPin()
                             $('#cityName').html('');
                             $('#countryName').html('');
                             $('#cityData').hide();
-                            $('#textciutat').html();
                         }
                         else smoke.alert('Pin had already been added');
                     }
