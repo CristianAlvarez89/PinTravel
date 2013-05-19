@@ -10,7 +10,7 @@
     };
 
     //Obte un usuari amic
-    getFriend = function(req, res){
+    isFriend = function(req, res){
         Friend.findOne({userID:req.session.userID, friendID:req.params.id},function(error, friends) {
             if(req.session.userID == undefined)  res.send({status:false});
             else if (friends == null) res.send({friend:false});
@@ -48,7 +48,7 @@
 
     /***    Users API    ***/
     app.get('/friends', getFriends);            //JSON amb la llista dels usuaris registrats
-    app.get('/friends/:id', getFriend);         //Obte un usuari amic
+    app.get('/friends/:id', isFriend);         //Obte un usuari amic
     app.post('/friends', addFriends);           //Afegeix un nou amic
     app.delete('/friends/:id', removeFriend);   //Elimina a un amic
 }
